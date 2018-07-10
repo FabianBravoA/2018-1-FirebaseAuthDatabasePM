@@ -4,6 +4,33 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <div>
+            <!--Login-->
+            <div id="loggedIn">
+                <p id="username"></p>
+                <input id="logout" onclick="logoutWithFirebase()" type="button" value="LOGOUT">
+            </div>
+            <!--Autentificación-->
+            <div id="loggedOut">
+                <input id="email" type="email">
+                <input id="password" type="password">
+                <input id="registerButton" onclick="registerWithFirebase()" type="button" value="REGISTER">
+                <input id="loginButton" onclick="loginWithFirebase()" type="button" value="LOGIN">
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyDz28W-yh2DViQiA0xscpkgGVlfRlkYuQU",
+                authDomain: "gifchatlaboratoria.firebaseapp.com",
+                databaseURL: "https://gifchatlaboratoria.firebaseio.com",
+                projectId: "gifchatlaboratoria",
+                storageBucket: "gifchatlaboratoria.appspot.com",
+                messagingSenderId: "103111342125"
+            };
+            firebase.initializeApp(config);
+        </script>
         <script src="app.js"></script>
     </body>
 </html>
