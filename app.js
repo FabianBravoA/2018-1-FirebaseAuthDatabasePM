@@ -10,7 +10,16 @@ window.onload = ()=>{
         }
         console.log("User > "+JSON.stringify(user));
     });
-}
+
+    firebase.database().ref('gifs')
+        .on('child_added', (newGif)=>{
+            gifContainer.innerHTML += `
+                <p>${newGif.val().creatorName}</p>
+                <img style="width: 200px" src="${newGif.val().gifURL}">
+                </img>
+            `;
+        });
+};
 
 //Registro
 function registerWithFirebase(){
@@ -67,4 +76,16 @@ function facebookLoginWithFirebase(){
             console.log("Error de firebase > Código > "+error.code); //error.code nos mostrará el código de error para informarnos qué pasó
             console.log("Error de firebase > Mensaje > "+error.message); //error.message nos mostrará el mensaje de firebase del mismo error
         });
+}
+
+function sendGif(){
+    const gifValue = gifArea.value;
+
+    const newGifKey = firebase.database().ref().child("gifs").push().key; //key permite que se generen llaves nuevas para guardar los gif 
+    const currentUser = firebase.auth().currentUser; //Si estamos logueados, siempre podremos acceder a los datos, en este caso, a los gif
+    firebase.database().ref(`gifs/${newGifKey}`).set({
+        gifURL : gifValue, 
+        creatorName : currentUser.displayName,
+        creator : currentUser.uid
+    });
 }
