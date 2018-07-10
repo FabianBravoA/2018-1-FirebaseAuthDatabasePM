@@ -32,7 +32,7 @@ window.onload = ()=>{
         });
 //Base de datos para consultar MÁS DE UNA VEZ
     firebase.database().ref('gifs')
-        .limitToLast(2) //Filtro de mensajes cuando se cargan los datos
+        .limitToLast(5) //Filtro de mensajes cuando se cargan los datos
         .on('child_added', (newGif)=>{ //Para escuchar datos más veces o doblegados
             gifContainer.innerHTML += `
                 <p>${newGif.val().creatorName}</p>
@@ -106,7 +106,8 @@ function sendGif(){
     const currentUser = firebase.auth().currentUser; //Si estamos logueados, siempre podremos acceder a los datos, en este caso, a los gifs
     firebase.database().ref(`gifs/${newGifKey}`).set({
         gifURL : gifValue, 
-        creatorName : currentUser.displayName,
+        creatorName : currentUser.displayName || //Si esto está null o undefined, sigue con la opción que le sigue "||"
+                        currentUser.providerData[0].email,
         creator : currentUser.uid
     });
 }
