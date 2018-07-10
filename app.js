@@ -3,6 +3,7 @@ window.onload = ()=>{
         if(user){ //Si está logeado, mostraremos la opción loggedIn
             loggedIn.style.display = "block";
             loggedOut.style.display = "none";
+            username.innerText = user.displayName;
         }else{ //Si NO está logeado, mostraremos la opción loggedOut
             loggedIn.style.display = "none";
             loggedOut.style.display = "block";
@@ -44,6 +45,23 @@ function logoutWithFirebase(){
     firebase.auth().signOut()
         .then(()=>{
             console.log("Usuario finalizó su sesión");
+        })
+        .catch((error)=>{
+            console.log("Error de firebase > Código > "+error.code); //error.code nos mostrará el código de error para informarnos qué pasó
+            console.log("Error de firebase > Mensaje > "+error.message); //error.message nos mostrará el mensaje de firebase del mismo error
+        });
+}
+//Login con Facebook
+function facebookLoginWithFirebase(){
+    const provider = new firebase.auth.FacebookAuthProvider(); // creamos un nuevo objeto 
+
+    provider.setCustomParameters({ // le decimos que haga un login con facebook y enlace un popup
+        'display' : 'popup'
+    });
+
+    firebase.auth().signInWithPopup(provider)
+        .then(()=>{
+            console.log("Login con facebook exitoso");
         })
         .catch((error)=>{
             console.log("Error de firebase > Código > "+error.code); //error.code nos mostrará el código de error para informarnos qué pasó

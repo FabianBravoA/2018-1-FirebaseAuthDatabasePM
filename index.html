@@ -10,12 +10,14 @@
                 <p id="username"></p>
                 <input id="logout" onclick="logoutWithFirebase()" type="button" value="LOGOUT">
             </div>
-            <!--Autentificación-->
+            <!--Autentificación con mail-->
             <div id="loggedOut">
                 <input id="email" type="email">
                 <input id="password" type="password">
                 <input id="registerButton" onclick="registerWithFirebase()" type="button" value="REGISTER">
                 <input id="loginButton" onclick="loginWithFirebase()" type="button" value="LOGIN">
+            <!--Autentificación con facebook-->    
+                <input id="facebookButton" onclick="facebookLoginWithFirebase()" type="button" value="FACEBOOK LOGIN">
             </div>
         </div>
         <script src="https://www.gstatic.com/firebasejs/5.2.0/firebase.js"></script>
